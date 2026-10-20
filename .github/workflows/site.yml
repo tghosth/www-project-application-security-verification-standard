@@ -17,8 +17,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1
         with:
           ruby-version: '4.0.7'
           bundler-cache: true
@@ -38,23 +38,23 @@ jobs:
           python3 -c "from pathlib import Path; assert 'Deprecation Warning' not in Path('/tmp/asvs-root-build.log').read_text(), 'Sass deprecations returned'"
           python3 scripts/check_site.py /tmp/asvs-site-root
       - name: Install browser test driver
-        run: python3 -m pip install playwright
+        run: python3 -m pip install playwright==1.64.0
       - name: Review desktop, mobile, and search in Chrome
         run: python3 scripts/review_site.py
       - name: Upload browser screenshots
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: asvs-browser-review
           path: /tmp/asvs-review
           retention-days: 7
       - name: Upload built website for preview
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: asvs-site-preview
           path: _site
           retention-days: 7
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         with:
           path: _site
@@ -63,8 +63,8 @@ jobs:
     name: Windows Ruby 4.0.7 launcher
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1
         with:
           ruby-version: '4.0.7'
           bundler-cache: false
@@ -105,4 +105,4 @@ jobs:
     steps:
       - name: Deploy GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
